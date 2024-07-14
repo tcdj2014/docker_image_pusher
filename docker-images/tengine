@@ -139,9 +139,9 @@ RUN   if [ -z "$TENGINE_VERSION" ]; then \
 
 EXPOSE 9210 9211 9212
 COPY docker-images/nginx.conf /etc/nginx/nginx.conf
-COPY docker-images/proxy.conf ${TENGINE_BASEDIR}/conf/
+COPY docker-images/proxy.conf ${TENGINE_BASEDIR}/
 
-WORKDIR ${TENGINE_BASEDIR}/conf
+WORKDIR ${TENGINE_BASEDIR}
 
 STOPSIGNAL SIGTERM
 
