@@ -58,8 +58,8 @@ jobs:
     - name: Build and push image Aliyun
       run: |
         docker login -u $ALIYUN_REGISTRY_USER -p $ALIYUN_REGISTRY_PASSWORD $ALIYUN_REGISTRY
-        # 数据预处理,判断镜像是否重名
+        # 打包镜像并上传
         echo "docker build tengine"
-        docker build -t $ALIYUN_REGISTRY/ALIYUN_NAME_SPACE/tengine:0.01 -f docker-images/tengine
-        echo "docker push $ALIYUN_REGISTRY/ALIYUN_NAME_SPACE/tengine:0.01"
-        docker push $ALIYUN_REGISTRY/ALIYUN_NAME_SPACE/tengine:0.01
+        docker build -t registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01 -f docker-images/tengine
+        echo "docker push registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01"
+        docker push registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01
