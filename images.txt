@@ -9,3 +9,4 @@ rabbitmq:3.13-management
 redis:7.2
 mongo:6.0.16
 mongo:7.0.12
+postgres:12.19
