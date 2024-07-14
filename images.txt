@@ -1,5 +1,6 @@
-alpine:3.20.1
-mongo:4.4
+#alpine:3.20.1
+#mongo:4.4
 mysql:5.7.16
-rabbitmq:3.10-management
-redis:5.0
+#rabbitmq:3.10-management
+#redis:5.0
+mysql:8.4.1
