@@ -60,8 +60,8 @@ jobs:
         docker login -u $ALIYUN_REGISTRY_USER -p $ALIYUN_REGISTRY_PASSWORD $ALIYUN_REGISTRY
         # 打包镜像并上传
         echo "docker build tengine"
-        docker build -t registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01 -f docker-images/tengine .
-        echo "docker push registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01"
-        docker push registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01
-        docker tag registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01 registry.cn-shanghai.aliyuncs.com/xmtang/tengine:latest
-        docker push registry.cn-shanghai.aliyuncs.com/xmtang/tengine:latest
+        docker build -t $ALIYUN_REGISTRY/xmtang/tengine:0.01 -f docker-images/tengine .
+        echo "docker push $ALIYUN_REGISTRY/xmtang/tengine:0.01"
+        docker push $ALIYUN_REGISTRY/xmtang/tengine:0.01
+        docker tag $ALIYUN_REGISTRY/xmtang/tengine:0.01 $ALIYUN_REGISTRY/xmtang/tengine:latest
+        docker push $ALIYUN_REGISTRY/xmtang/tengine:latest
