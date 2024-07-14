@@ -1,5 +1,5 @@
 alpine:3.20.1
---platform=linux/amd64 mongo:4.4
---platform=linux/amd64 mysql:5.7.16
---platform=linux/amd64 rabbitmq:3.10-management
---platform=linux/amd64 redis:5.0
+mongo:4.4
+mysql:5.7.16
+rabbitmq:3.10-management
+redis:5.0
