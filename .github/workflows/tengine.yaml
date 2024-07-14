@@ -63,6 +63,6 @@ jobs:
         echo "docker build tengine"
         docker build -t $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:0.01 -f docker-images/tengine .
         echo "docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:$TENGINE_TAG"
-        docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:&TENGINE_TAG
+        docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:$TENGINE_TAG
         docker tag $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:$TENGINE_TAG $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:latest
         docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:latest
