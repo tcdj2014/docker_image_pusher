@@ -64,3 +64,4 @@ jobs:
         echo "docker push registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01"
         docker push registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01
         docker tag registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01 registry.cn-shanghai.aliyuncs.com/xmtang/tengine:latest
+        docker push registry.cn-shanghai.aliyuncs.com/xmtang/tengine:latest
