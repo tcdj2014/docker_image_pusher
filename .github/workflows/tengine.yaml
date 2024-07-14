@@ -63,3 +63,4 @@ jobs:
         docker build -t registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01 -f docker-images/tengine .
         echo "docker push registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01"
         docker push registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01
+        docker tag registry.cn-shanghai.aliyuncs.com/xmtang/tengine:0.01 registry.cn-shanghai.aliyuncs.com/xmtang/tengine:latest
