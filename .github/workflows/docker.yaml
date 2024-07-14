@@ -7,6 +7,8 @@ on:
     paths:
       - 'images.txt'
       - '.github/workflows/docker.yaml'
+    schedule:
+      - cron: '00 23 * * *'
 
 
 env:
