@@ -1,4 +1,4 @@
-name: Tengine
+name: Tengine-Base
 
 on:
   workflow_dispatch:
