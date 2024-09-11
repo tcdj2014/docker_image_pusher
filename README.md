@@ -81,6 +81,7 @@ xiaoyaliu/alist
 
 ### 编译tengine-base
 ```shell
-git tag -a v0.3 -m "调整dockerfile" \
-&& git push origin v0.3
+tag=v0.3
+git tag -a $tag -m "调整dockerfile" \
+&& git push origin $tag
 ```
