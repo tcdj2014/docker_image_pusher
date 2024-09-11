@@ -91,7 +91,7 @@ jobs:
       - name: Build and push tengine base
         uses: docker/build-push-action@v4
         with:
-          file: docker-images/tengine
+          file: docker-images/tengine-base
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
