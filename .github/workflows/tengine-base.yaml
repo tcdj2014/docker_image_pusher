@@ -95,7 +95,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ vars.ALIYUN_NAME_SPACE }}/tengine:base-latest,${{ vars.ALIYUN_NAME_SPACE }}/tengine:base-${{ TAG_VERSION }}
+          tags: ${{ vars.ALIYUN_NAME_SPACE }}/tengine:base-latest,${{ vars.ALIYUN_NAME_SPACE }}/tengine:base-${{ GITHUB_ENV.TAG_VERSION }}
 
       - name: Build and push tengine wms base
         uses: docker/build-push-action@v4
@@ -104,7 +104,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ vars.ALIYUN_NAME_SPACE }}/tengine:wms-base-latest,${{ vars.ALIYUN_NAME_SPACE }}/tengine:wms-base-${{ TAG_VERSION }}
+          tags: ${{ vars.ALIYUN_NAME_SPACE }}/tengine:wms-base-latest,${{ vars.ALIYUN_NAME_SPACE }}/tengine:wms-base-${{ GITHUB_ENV.TAG_VERSION }}
 
       - name: Build and push tengine ots base
         uses: docker/build-push-action@v4
@@ -113,4 +113,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ vars.ALIYUN_NAME_SPACE }}/tengine:ots-base-latest,${{ vars.ALIYUN_NAME_SPACE }}/tengine:ots-base-${{ TAG_VERSION }}
+          tags: ${{ vars.ALIYUN_NAME_SPACE }}/tengine:ots-base-latest,${{ vars.ALIYUN_NAME_SPACE }}/tengine:ots-base-${{ GITHUB_ENV.TAG_VERSION }}
