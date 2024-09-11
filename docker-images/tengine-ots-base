@@ -1,0 +1,4 @@
+## Dockerfile
+FROM registry.cn-hangzhou.aliyuncs.com/xmtang/tengine:base-latest
+
+COPY docker-images/ots-static.conf /etc/nginx/conf.d/ots-static.conf

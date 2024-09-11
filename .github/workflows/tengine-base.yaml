@@ -1,0 +1,116 @@
+name: Tengine
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - v*
+    paths:
+      - 'docker-images/tengine-base'
+      - 'docker-images/tengine-wms-base'
+      - 'docker-images/tengine-ots-base'
+      - 'docker-images/base.conf'
+      - 'docker-images/proxy.conf'
+      - 'docker-images/wms-static.conf'
+      - 'docker-images/cbt-web.conf'
+      - 'docker-images/ots-static.conf'
+      - '.github/workflows/tengine-base.yaml'
+
+
+env:
+  TENGINE_TAG: "${{ vars.TENGINE_TAG }}"
+  ALIYUN_REGISTRY: "${{ vars.ALIYUN_REGISTRY }}"
+  ALIYUN_NAME_SPACE: "${{ vars.ALIYUN_NAME_SPACE }}"
+  ALIYUN_REGISTRY_USER: "${{ secrets.ALIYUN_REGISTRY_USER }}"
+  ALIYUN_REGISTRY_PASSWORD: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}"
+
+jobs:
+
+  build:
+    name: Pull
+    runs-on: ubuntu-latest
+    steps:
+      - name: Before freeing up disk space
+        run: |
+          echo "Before freeing up disk space"
+          echo "=============================================================================="
+          df -hT
+          echo "=============================================================================="
+
+      # 增加可用磁盘空间
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+
+          root-reserve-mb: 2048
+          swap-size-mb: 128
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+          # 如果空间还是不够用，可以把以下开启，清理出更多空间
+          # remove-android: 'true'
+          # remove-codeql: 'true'
+          build-mount-path: '/var/lib/docker/'
+
+      - name: Restart docker
+        run: sudo service docker restart
+
+      - name: Free up disk space complete
+        run: |
+          echo "Free up disk space complete"
+          echo "=============================================================================="
+          df -hT
+          echo "=============================================================================="
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Docker Setup Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Set the value
+        id: step_one
+        run: |
+          tag=tangxm1314/docker-topsap:$(echo "${{ github.ref }}" | sed -e "s,.*/\(.*\),\1,")
+          echo "TAG_VERSION=$tag" >> "$GITHUB_ENV"
+
+      - name: Use the value
+        id: step_two
+        run: |
+          printf 'TAG是%s\n' "$TAG_VERSION" # This will output TAG_VERSION
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          registry: $ALIYUN_REGISTRY
+          username: $ALIYUN_REGISTRY_USER
+          password: $ALIYUN_REGISTRY_PASSWORD
+
+      - name: Build and push tengine base
+        uses: docker/build-push-action@v4
+        with:
+          file: docker-images/tengine
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: $ALIYUN_NAME_SPACE/tengine:base-latest,$ALIYUN_NAME_SPACE/tengine:base-$TAG_VERSION
+
+      - name: Build and push tengine wms base
+        uses: docker/build-push-action@v4
+        with:
+          file: docker-images/tengine-wms-base
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: $ALIYUN_NAME_SPACE/tengine:wms-base-latest,$ALIYUN_NAME_SPACE/tengine:wms-base-$TAG_VERSION
+
+      - name: Build and push tengine ots base
+        uses: docker/build-push-action@v4
+        with:
+          file: docker-images/tengine-ots-base
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: $ALIYUN_NAME_SPACE/tengine:ots-base-latest,$ALIYUN_NAME_SPACE/tengine:ots-base-$TAG_VERSION

@@ -1,0 +1,20 @@
+services:
+  tengine:
+    image: registry.cn-hangzhou.aliyuncs.com/loghub/wms-system-service:cbt-web-lxj-prod
+    container_name: tengine
+    hostname: tengine
+    restart: always
+    ports:
+      - 9210:9210 # 单独提供一个wms端口，可以给内网服务访问
+      - 443:9210 # wms地址
+      - 39211:9211 # 缺省，暂时未使用
+      - 39212:9212 # tengine健康检查和wms静态资源
+      - 39213:9213 # tengine健康检查和ots静态资源
+    volumes:
+      - ./conf:/usr/local/nginx/conf/vhost # nginx配置文件
+    environment:
+      - TZ=Asia/Shanghai # 设置时区
+networks:
+  default:
+    external: true
+    name: ttx-network
