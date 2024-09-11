@@ -142,7 +142,7 @@ RUN   if [ -z "$TENGINE_VERSION" ]; then \
 EXPOSE 80 443 9210 9211 9212 9213
 COPY docker-images/base.conf /etc/nginx/nginx.conf
 COPY docker-images/proxy.conf ${TENGINE_BASEDIR}/
-COPY docker-images/wms-static.conf /etc/nginx/conf.d/wms-static.conf
+COPY docker-images/cbt-web.conf ${TENGINE_BASEDIR}/
 
 WORKDIR ${TENGINE_BASEDIR}
 
