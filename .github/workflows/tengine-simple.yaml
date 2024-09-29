@@ -6,9 +6,9 @@ on:
     tags:
       - v*
     paths:
-      - 'docker-images/tengine-base'
-      - 'docker-images/base.conf'
-      - 'docker-images/proxy.conf'
+      - 'docker-images/linux_amd64/tengine-base'
+      - 'docker-images/linux_amd64/tengine-wms-base'
+      - 'docker-images/linux_amd64/tengine-ots-base'
       - '.github/workflows/tengine-simple.yaml'
 
 
@@ -78,20 +78,20 @@ jobs:
           docker login -u $ALIYUN_REGISTRY_USER -p $ALIYUN_REGISTRY_PASSWORD $ALIYUN_REGISTRY
           # 打包镜像并上传
           echo "docker build tengine base"
-          docker build -t $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:base-${{ env.TAG_VERSION }} -f docker-images/tengine-base .
-          echo "docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:base-${{ env.TAG_VERSION }}"
-          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:base-${{ env.TAG_VERSION }}
-          docker tag $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:base-${{ env.TAG_VERSION }} $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:base-latest
-          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:base-latest
+          docker build -t $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-base-${{ env.TAG_VERSION }} -f docker-images/linux_amd64/tengine-base .
+          echo "docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-base-${{ env.TAG_VERSION }}"
+          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-base-${{ env.TAG_VERSION }}
+          docker tag $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-base-${{ env.TAG_VERSION }} $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-base-latest
+          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-base-latest
           echo "docker build tengine wms base"
-          docker build -t $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:wms-base-${{ env.TAG_VERSION }} -f docker-images/tengine-wms-base .
-          echo "docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:wms-base-${{ env.TAG_VERSION }}"
-          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:wms-base-${{ env.TAG_VERSION }}
-          docker tag $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:wms-base-${{ env.TAG_VERSION }} $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:wms-base-latest
-          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:wms-base-latest
+          docker build -t $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-wms-base-${{ env.TAG_VERSION }} -f docker-images/linux_amd64/tengine-wms-base .
+          echo "docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-wms-base-${{ env.TAG_VERSION }}"
+          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-wms-base-${{ env.TAG_VERSION }}
+          docker tag $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-wms-base-${{ env.TAG_VERSION }} $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-wms-base-latest
+          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-wms-base-latest
           echo "docker build tengine ots base"
-          docker build -t $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:ots-base-${{ env.TAG_VERSION }} -f docker-images/tengine-ots-base .
-          echo "docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:ots-base-${{ env.TAG_VERSION }}"
-          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:ots-base-${{ env.TAG_VERSION }}
-          docker tag $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:ots-base-${{ env.TAG_VERSION }} $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:ots-base-latest
-          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:ots-base-latest
+          docker build -t $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-ots-base-${{ env.TAG_VERSION }} -f docker-images/linux_amd64/tengine-ots-base .
+          echo "docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-ots-base-${{ env.TAG_VERSION }}"
+          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-ots-base-${{ env.TAG_VERSION }}
+          docker tag $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-ots-base-${{ env.TAG_VERSION }} $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-ots-base-latest
+          docker push $ALIYUN_REGISTRY/$ALIYUN_NAME_SPACE/tengine:linux_amd64-ots-base-latest

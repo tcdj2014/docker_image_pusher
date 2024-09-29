@@ -88,15 +88,14 @@ jobs:
           username: ${{ secrets.ALIYUN_REGISTRY_USER }}
           password: ${{ secrets.ALIYUN_REGISTRY_PASSWORD }}
 
-#      - name: Build and push tengine base
-#        uses: docker/build-push-action@v6
-#        with:
-#          file: docker-images/tengine-base
-#          context: .
-#          # platforms: linux/amd64,linux/arm64
-#          platforms: linux/amd64
-#          push: true
-#          tags: ${{ vars.ALIYUN_REGISTRY }}/${{ vars.ALIYUN_NAME_SPACE }}/tengine:base-latest,${{ vars.ALIYUN_REGISTRY }}/${{ vars.ALIYUN_NAME_SPACE }}/tengine:base-${{ env.TAG_VERSION }}
+      - name: Build and push tengine base
+        uses: docker/build-push-action@v6
+        with:
+          file: docker-images/tengine-base
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ vars.ALIYUN_REGISTRY }}/${{ vars.ALIYUN_NAME_SPACE }}/tengine:base-latest,${{ vars.ALIYUN_REGISTRY }}/${{ vars.ALIYUN_NAME_SPACE }}/tengine:base-${{ env.TAG_VERSION }}
 
       - name: Build and push tengine wms base
         uses: docker/build-push-action@v6

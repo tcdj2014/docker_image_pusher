@@ -1,0 +1,8 @@
+FROM registry.cn-hangzhou.aliyuncs.com/xmtang/tengine:base-latest
+
+ARG TENGINE_VERSION
+
+ENV TENGINE_VERSION="${TENGINE_VERSION}" \
+  TENGINE_BASEDIR="/etc/nginx/conf.d/"
+
+CMD ["nginx", "-g", "daemon off;"]
