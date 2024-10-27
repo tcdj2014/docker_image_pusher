@@ -12,7 +12,12 @@ mysql:8.0.34
 mysql:8.0.35
 mysql:8.0.36
 mysql:8.0.37
+mysql:8.0.38
+mysql:8.0.39
+mysql:8.0.40
 mysql:8.4.1
+mysql:8.4.2
+mysql:8.4.3
 rabbitmq:3.13-management
 redis:6.2
 redis:7.2
