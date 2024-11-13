@@ -27,3 +27,5 @@ mongo:6.0.16
 mongo:7.0.12
 postgres:12.19
 lscr.io/linuxserver/jackett:latest
+zabbix/zabbix-server-mysql:latest
+zabbix/zabbix-web-nginx-mysql:latest
