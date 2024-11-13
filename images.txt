@@ -29,3 +29,4 @@ postgres:12.19
 lscr.io/linuxserver/jackett:latest
 zabbix/zabbix-server-mysql:latest
 zabbix/zabbix-web-nginx-mysql:latest
+zabbix/zabbix-agent:latest
