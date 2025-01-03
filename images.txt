@@ -30,3 +30,4 @@ lscr.io/linuxserver/jackett:latest
 zabbix/zabbix-server-mysql:latest
 zabbix/zabbix-web-nginx-mysql:latest
 zabbix/zabbix-agent:latest
+portainer/portainer-ce:latest
