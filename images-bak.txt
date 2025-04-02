@@ -23,3 +23,4 @@ zabbix/zabbix-web-nginx-mysql:latest
 zabbix/zabbix-agent:latest
 portainer/portainer-ce:latest
 vaultwarden/server:1.33.1-alpine
+prom/prometheus:v2.53.4
