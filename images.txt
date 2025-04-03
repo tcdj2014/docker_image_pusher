@@ -1,1 +1,2 @@
 grafana/grafana:11.6.0
+jumpserver/jms_all:v4.8.1
