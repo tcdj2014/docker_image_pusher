@@ -82,6 +82,7 @@ def process_images(duplicate_images):
             # 提取平台参数（如linux/amd64）
             platform = None
             platform_match = re.search(r'--platform[= ](\S+)', line)
+            print(f"当前系统平台:platform: {platform}")
             if platform_match:
                 platform = platform_match.group(1)
             platform_prefix = f"{platform.replace('/', '_')}_" if platform else ''
