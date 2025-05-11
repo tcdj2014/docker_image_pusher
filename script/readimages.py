@@ -116,7 +116,7 @@ def process_images(duplicate_images):
             # 执行docker命令
             try:
                 # 拉取镜像
-                subprocess.run('docker', 'pull', parts)
+                subprocess.run(['docker', 'pull', parts], check=True)
 
                 # 重标签镜像
                 subprocess.run(['docker', 'tag', image, new_image], check=True)
