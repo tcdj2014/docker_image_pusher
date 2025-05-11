@@ -111,20 +111,24 @@ def process_images(duplicate_images):
 
             # 构造新镜像名
             new_image = f"{aliyun_registry}/{aliyun_namespace}/{platform_prefix}{name_space_prefix}{image_name_tag}"
-            print("新镜像名:" + new_image)
 
             # 执行docker命令
             try:
                 # 拉取镜像
+                print("拉取镜像:" + parts[-1])
                 subprocess.run(['docker', 'pull', parts[-1]], check=True)
 
                 # 重标签镜像
+                print("重标签镜像:" + new_image)
                 subprocess.run(['docker', 'tag', image, new_image], check=True)
 
                 # 推送镜像
+                print("推送镜像:" + new_image)
                 subprocess.run(['docker', 'push', new_image], check=True)
 
                 # 清理原镜像和新标签
+                print("清理镜像:" + image)
+                print("清理镜像:" + new_image)
                 subprocess.run(['docker', 'rmi', image], check=True)
                 subprocess.run(['docker', 'rmi', new_image], check=True)
 
