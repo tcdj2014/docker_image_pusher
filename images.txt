@@ -1,1 +1,1 @@
-openwrt/rootfs@sha256:01551324520f63b16b9c077be413b698663d003c5bc9ff5205b8dc8a7d5cc1ff
+openwrt/rootfs:aarch64_generic-openwrt-24.10@sha256:01551324520f63b16b9c077be413b698663d003c5bc9ff5205b8dc8a7d5cc1ff
