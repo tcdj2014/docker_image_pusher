@@ -1,1 +1,1 @@
-openwrt/rootfs:aarch64_generic-openwrt-24.10
+openwrt/rootfs
