@@ -1,3 +1,1 @@
-mysql:8.0.37-debian
-mysql:8.0.41-debian
-mysql:8.0.42-debian
+openwrtorg/rootfs:armvirt/64
