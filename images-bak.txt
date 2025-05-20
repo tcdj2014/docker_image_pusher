@@ -30,3 +30,4 @@ rustdesk/rustdesk-server:1.1.14
 oliver006/redis_exporter:v1.61.0
 percona/mongodb_exporter:0.43.1
 mysql:8.0.41-debian
+registry:3.0.0

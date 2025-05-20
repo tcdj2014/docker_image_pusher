@@ -1,1 +1,1 @@
-openwrt/openwrt:arm64
+registry:3.0.0
