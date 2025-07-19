@@ -34,3 +34,5 @@ registry:3.0.0
 oliver006/redis_exporter:v1.61.0
 percona/mongodb_exporter:0.43.1
 prom/mysqld-exporter:v0.17.2
+percona/pmm-client:2
+percona/pmm-server:2
