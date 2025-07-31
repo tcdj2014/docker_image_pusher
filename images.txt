@@ -1,2 +1,1 @@
-percona/pmm-client:3
-percona/pmm-server:3
+ghcr.io/raywangqvq/bili_tool_web
