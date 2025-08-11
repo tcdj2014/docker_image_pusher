@@ -116,7 +116,11 @@ def process_images(image_lines: List[str], duplicate_images: Set[str]):
         try:
             # 拉取镜像
             print(f"拉取镜像: {image}")
-            subprocess.run(['docker', 'pull', image], check=True)
+            pull_command = ['docker', 'pull']
+            if platform:
+                pull_command.extend(['--platform', platform])
+            pull_command.append(image)
+            subprocess.run(pull_command, check=True)
 
             # 重标签镜像
             print(f"重标签镜像: {new_image}")
