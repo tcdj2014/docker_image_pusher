@@ -64,7 +64,7 @@ jobs:
                 uses: actions/setup-python@v4
                 with:
                   python-version: "3.12"  # 支持 3.x、3.8.6 等精确版本
-                  cache: 'pip'            # 可选：启用 pip 缓存
+                  # cache: 'pip'            # 禁用pip缓存，因为我们没有第三方依赖
 
             # 验证Python安装
             -   name: Check Python version
