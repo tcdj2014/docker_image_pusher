@@ -1,1 +1,1 @@
-ghcr.io/raywangqvq/bili_tool_web
+--platform=linux/arm64 ghcr.io/raywangqvq/bili_tool_web
