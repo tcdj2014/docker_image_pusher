@@ -141,29 +141,14 @@ def process_images(image_lines: List[str], duplicate_images: Set[str]):
             raise
 
 
-# 主函数
-def main():
-    try:
-        args = parse_arguments()
-        docker_login()  # 步骤1：登录Docker
-        image_lines = read_image_lines(args.image_file)
-        duplicates = preprocess_images(image_lines)  # 步骤2：预处理镜像
-        process_images(image_lines, duplicates)  # 步骤3：处理镜像
-    except Exception as e:
-        print(f"脚本执行失败：{e}")
-        exit(1)
-
-
-if __name__ == "__main__":
-    main()
-
-
+# 解析命令行参数
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Docker镜像拉取推送工具')
     parser.add_argument('--image-file', default='images.txt', help='镜像列表文件路径，默认为images.txt')
     return parser.parse_args()
 
 
+# 读取镜像文件行
 def read_image_lines(file_path: str) -> List[str]:
     """读取镜像列表文件，返回非空且非注释的行"""
     image_lines = []
@@ -182,3 +167,20 @@ def read_image_lines(file_path: str) -> List[str]:
     except Exception as e:
         print(f"读取文件 {file_path} 时出错: {e}")
         exit(1)
+
+
+# 主函数
+def main():
+    try:
+        args = parse_arguments()
+        docker_login()  # 步骤1：登录Docker
+        image_lines = read_image_lines(args.image_file)
+        duplicates = preprocess_images(image_lines)  # 步骤2：预处理镜像
+        process_images(image_lines, duplicates)  # 步骤3：处理镜像
+    except Exception as e:
+        print(f"脚本执行失败：{e}")
+        exit(1)
+
+
+if __name__ == "__main__":
+    main()
