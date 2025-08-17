@@ -3,6 +3,7 @@ import os
 import re
 import argparse
 from typing import List, Dict, Set, Tuple
+from multiprocessing import Pool, cpu_count
 
 
 # Docker登录到阿里云镜像仓库
@@ -63,20 +64,14 @@ def preprocess_images(image_lines: List[str]) -> Set[str]:
     return duplicate_images
 
 
-# 处理镜像：拉取、重标签、推送、清理
-def process_images(image_lines: List[str], duplicate_images: Set[str]):
-    aliyun_registry = os.getenv('ALIYUN_REGISTRY')
-    aliyun_namespace = os.getenv('ALIYUN_NAME_SPACE')
-
-    # 检查环境变量
-    if not aliyun_registry or not aliyun_namespace:
-        raise ValueError("环境变量 ALIYUN_REGISTRY 或 ALIYUN_NAME_SPACE 未设置")
-
-    for line in image_lines:
+# 处理单个镜像
+def process_single_image(args: Tuple[str, Set[str], str, str, str]):
+    line, duplicate_images, aliyun_registry, aliyun_namespace, platform_prefix = args
+    try:
         line = line.strip()
         # 跳过空行和注释行
         if not line or re.match(r'^\s*#', line):
-            continue
+            return
 
         # 提取平台参数（如linux/amd64）
         platform = None
@@ -113,36 +108,59 @@ def process_images(image_lines: List[str], duplicate_images: Set[str]):
         new_image = f"{aliyun_registry}/{aliyun_namespace}/{platform_prefix}{name_space_prefix}{image_name_tag}"
 
         # 执行docker命令
-        try:
-            # 拉取镜像
-            print(f"拉取镜像: {image}")
-            pull_command = ['docker', 'pull']
-            if platform:
-                pull_command.extend(['--platform', platform])
-            pull_command.append(image)
-            subprocess.run(pull_command, check=True)
+        # 拉取镜像
+        print(f"拉取镜像: {image}")
+        pull_command = ['docker', 'pull']
+        if platform:
+            pull_command.extend(['--platform', platform])
+        pull_command.append(image)
+        subprocess.run(pull_command, check=True)
 
-            # 重标签镜像
-            print(f"重标签镜像: {new_image}")
-            subprocess.run(['docker', 'tag', image, new_image], check=True)
+        # 重标签镜像
+        print(f"重标签镜像: {new_image}")
+        subprocess.run(['docker', 'tag', image, new_image], check=True)
 
-            # 推送镜像
-            print(f"推送镜像: {new_image}")
-            subprocess.run(['docker', 'push', new_image], check=True)
+        # 推送镜像
+        print(f"推送镜像: {new_image}")
+        subprocess.run(['docker', 'push', new_image], check=True)
 
-            # 清理原镜像和新标签
-            print(f"清理镜像: {image}")
-            subprocess.run(['docker', 'rmi', '-f', image], check=True)
-            print(f"清理镜像: {new_image}")
-            subprocess.run(['docker', 'rmi', '-f', new_image], check=True)
+        # 清理原镜像和新标签
+        print(f"清理镜像: {image}")
+        subprocess.run(['docker', 'rmi', '-f', image], check=True)
+        print(f"清理镜像: {new_image}")
+        subprocess.run(['docker', 'rmi', '-f', new_image], check=True)
 
-            # 打印磁盘空间信息
-            print("检查磁盘空间...")
-            subprocess.run(['df', '-hT'])
+        # 打印磁盘空间信息
+        print("检查磁盘空间...")
+        subprocess.run(['df', '-hT'])
 
-        except subprocess.CalledProcessError as e:
-            print(f"命令执行失败：{e}")
-            raise
+    except subprocess.CalledProcessError as e:
+        print(f"命令执行失败：{e}")
+        raise
+    except Exception as e:
+        print(f"处理镜像时发生错误：{e}")
+        raise
+
+
+# 处理镜像：拉取、重标签、推送、清理
+def process_images(image_lines: List[str], duplicate_images: Set[str]):
+    aliyun_registry = os.getenv('ALIYUN_REGISTRY')
+    aliyun_namespace = os.getenv('ALIYUN_NAME_SPACE')
+
+    # 检查环境变量
+    if not aliyun_registry or not aliyun_namespace:
+        raise ValueError("环境变量 ALIYUN_REGISTRY 或 ALIYUN_NAME_SPACE 未设置")
+
+    # 创建进程池
+    pool_size = cpu_count() * 2  # 根据CPU核心数设置进程池大小
+    print(f"使用 {pool_size} 个并发进程处理镜像")
+
+    # 准备参数
+    args_list = [(line, duplicate_images, aliyun_registry, aliyun_namespace, '') for line in image_lines]
+
+    # 创建进程池并执行任务
+    with Pool(pool_size) as pool:
+        pool.map(process_single_image, args_list)
 
 
 # 解析命令行参数
@@ -177,10 +195,13 @@ def read_image_lines(file_path: str) -> List[str]:
 def main():
     try:
         args = parse_arguments()
-#         docker_login()  # 步骤1：登录Docker
+        # docker_login()  # 步骤1：登录Docker
+        # 步骤2：读取镜像文件（仅一次读取）
         image_lines = read_image_lines(args.image_file)
-        duplicates = preprocess_images(image_lines)  # 步骤2：预处理镜像
-        process_images(image_lines, duplicates)  # 步骤3：处理镜像
+        # 步骤3：预处理镜像（内存中处理）
+        duplicates = preprocess_images(image_lines)
+        # 步骤4：多进程处理（基于内存数据）
+        process_images(image_lines, duplicates)
     except Exception as e:
         print(f"脚本执行失败：{e}")
         exit(1)
