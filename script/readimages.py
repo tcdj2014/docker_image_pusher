@@ -177,7 +177,7 @@ def read_image_lines(file_path: str) -> List[str]:
 def main():
     try:
         args = parse_arguments()
-        docker_login()  # 步骤1：登录Docker
+#         docker_login()  # 步骤1：登录Docker
         image_lines = read_image_lines(args.image_file)
         duplicates = preprocess_images(image_lines)  # 步骤2：预处理镜像
         process_images(image_lines, duplicates)  # 步骤3：处理镜像
