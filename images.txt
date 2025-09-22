@@ -1,9 +1,4 @@
-redis:6.2
-redis:7.2
-mongo:4.4
-mongo:5.0
-rabbitmq:3.10-management
-rabbitmq:3.13-management
-mysql:8.0.41-debian
---platform=linux/amd64 ghcr.io/raywangqvq/bili_tool_web
---platform=linux/arm64 ghcr.io/raywangqvq/bili_tool_web
+redis:7.4.1
+rabbitmq:3.13.7-management
+mysql:8.4.3
+mongo:7.0.15

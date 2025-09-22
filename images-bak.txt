@@ -40,3 +40,7 @@ percona/pmm-client:3
 percona/pmm-server:3
 ghcr.io/raywangqvq/bili_tool_web
 --platform=linux/arm64 ghcr.io/raywangqvq/bili_tool_web
+redis:7.4.1
+rabbitmq:3.13.7-management
+mysql:8.4.3
+mongo:7.0.15
