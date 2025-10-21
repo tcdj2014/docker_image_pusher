@@ -11,9 +11,9 @@ on:
             - 'docker-images/tengine-ots'
             - 'docker-images/base-nginx.conf'
             - 'docker-images/base-proxy.conf'
-            - 'docker-images/wms-static.conf'
+            - 'docker-images/static-wms.conf'
             - 'docker-images/cbt-web.conf'
-            - 'docker-images/ots-static.conf'
+            - 'docker-images/static-ots.conf'
             - '.github/workflows/tengine-base.yaml'
 
 
