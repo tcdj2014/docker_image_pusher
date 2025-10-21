@@ -7,10 +7,10 @@ on:
             - v*
         paths:
             - 'docker-images/tengine-base'
-            - 'docker-images/tengine-wms-base'
-            - 'docker-images/tengine-ots-base'
-            - 'docker-images/base.conf'
-            - 'docker-images/proxy.conf'
+            - 'docker-images/tengine-wms'
+            - 'docker-images/tengine-ots'
+            - 'docker-images/base-nginx.conf'
+            - 'docker-images/base-proxy.conf'
             - 'docker-images/wms-static.conf'
             - 'docker-images/cbt-web.conf'
             - 'docker-images/ots-static.conf'
@@ -100,7 +100,7 @@ jobs:
             -   name: Build and push tengine wms base
                 uses: docker/build-push-action@v6
                 with:
-                    file: docker-images/tengine-wms-base
+                    file: docker-images/tengine-wms
                     context: .
                     # platforms: linux/amd64,linux/arm64
                     platforms: linux/amd64
@@ -110,7 +110,7 @@ jobs:
             -   name: Build and push tengine ots base
                 uses: docker/build-push-action@v6
                 with:
-                    file: docker-images/tengine-ots-base
+                    file: docker-images/tengine-ots
                     context: .
                     # platforms: linux/amd64,linux/arm64
                     platforms: linux/amd64

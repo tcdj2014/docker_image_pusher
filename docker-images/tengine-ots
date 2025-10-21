@@ -2,4 +2,4 @@
 FROM registry.cn-hangzhou.aliyuncs.com/xmtang/tengine:base-latest
 
 COPY docker-images/cbt-web.conf ${TENGINE_BASEDIR}/
-COPY docker-images/ots-static.conf /etc/nginx/conf.d/ots-static.conf
+COPY docker-images/ots-static.conf ${TENGINE_BASEDIR}/
