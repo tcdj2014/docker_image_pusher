@@ -45,3 +45,4 @@ rabbitmq:3.13.7-management
 mysql:8.4.3
 mongo:7.0.15
 redis:6.2.20
+mysql:lts
