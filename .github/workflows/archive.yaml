@@ -12,24 +12,50 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
 
         steps:
             -   uses: actions/checkout@v4
-            -   name: Set up Python
-                uses: actions/setup-python@v5
-                with:
-                    python-version: '3.11'
 
-            -   name: Verify glibc
+            # 可选：看一眼 runner 的 glibc（仅用于对比，不影响产物）
+            -   name: Verify runner glibc (for reference)
                 run: ldd --version
 
-            -   name: Build in manylinux2014 container
+            -   name: Build in ubuntu-20.04 container
                 run: |
-                    cd  py/archive
-                    python build.py
+                    docker run --rm \
+                      -v "$PWD:/src" \
+                      -w /src/py/archive \
+                      ubuntu:20.04 \
+                      bash -c "
+                        set -eux
+                    
+                        apt-get update
+                        apt-get install -y \
+                          python3.11 \
+                          python3.11-venv \
+                          python3.11-distutils \
+                          python3-pip \
+                          patchelf \
+                          binutils \
+                          ca-certificates
+                    
+                        python3.11 -m pip install --upgrade pip
+                        python3.11 -m pip install pyinstaller
+                    
+                        echo '=== glibc in container ==='
+                        ldd --version
+                    
+                        python3.11 - <<'EOF'
+                        import sysconfig
+                        print('Py_ENABLE_SHARED =', sysconfig.get_config_var('Py_ENABLE_SHARED'))
+                        EOF
+                    
+                        # ⚠️ 必须在容器里跑 build.py
+                        python3.11 build.py
+                        "
 
             -   uses: actions/upload-artifact@v4
                 with:
-                    name: wms-archive-tool-linux-manylinux
+                    name: wms-archive-tool-linux
                     path: py/archive/dist/*
