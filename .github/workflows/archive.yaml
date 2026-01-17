@@ -25,24 +25,21 @@ jobs:
                       -v "$PWD:/src" \
                       quay.io/pypa/manylinux2014_x86_64 \
                       bash -c "
-                          set -eux
-                      
-                          PYTHON=/opt/python/cp311-cp311/bin/python
-                          PIP=/opt/python/cp311-cp311/bin/pip
-                      
-                          # 只用 manylinux 自带 pip
-                          \$PIP install --upgrade pip
-                          \$PIP install pyinstaller
-                      
-                          # 校验 Python 是否 shared build（必须是 1）
-                          \$PYTHON -c "import sys,sysconfig; print(sys.executable); print('Py_ENABLE_SHARED =', sysconfig.get_config_var('Py_ENABLE_SHARED'))"
-                      
-                          cd /src
-                      
-                          # ⚠️ build.py 也必须用这个 python
-                          \$PYTHON build.py
-                      "
+                        set -eux
 
+                        PYTHON=/opt/python/cp311-cp311/bin/python
+                        PIP=/opt/python/cp311-cp311/bin/pip
+
+                        \$PIP install --upgrade pip
+                        \$PIP install pyinstaller
+
+                        # 校验 Python 是否 shared build（必须是 1）
+                        \$PYTHON -c 'import sys,sysconfig; print(sys.executable); print(\"Py_ENABLE_SHARED =\", sysconfig.get_config_var(\"Py_ENABLE_SHARED\"))'
+
+                        cd /src
+
+                        \$PYTHON build.py
+                      "
             -   uses: actions/upload-artifact@v4
                 with:
                     name: wms-archive-tool-linux-manylinux
