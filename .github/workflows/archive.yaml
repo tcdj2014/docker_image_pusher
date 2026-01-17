@@ -33,27 +33,27 @@ jobs:
                     
                         apt-get update
                         apt-get install -y \
-                          python3.11 \
-                          python3.11-venv \
-                          python3.11-distutils \
+                          python3 \
+                          python3-venv \
+                          python3-distutils \
                           python3-pip \
                           patchelf \
                           binutils \
                           ca-certificates
                     
-                        python3.11 -m pip install --upgrade pip
-                        python3.11 -m pip install pyinstaller
+                        python3 -m pip install --upgrade pip
+                        python3 -m pip install pyinstaller
                     
                         echo '=== glibc in container ==='
                         ldd --version
                     
-                        python3.11 - <<'EOF'
+                        python3 - <<'EOF'
                         import sysconfig
                         print('Py_ENABLE_SHARED =', sysconfig.get_config_var('Py_ENABLE_SHARED'))
                         EOF
                     
                         # ⚠️ 必须在容器里跑 build.py
-                        python3.11 build.py
+                        python3 build.py
                         "
 
             -   uses: actions/upload-artifact@v4
