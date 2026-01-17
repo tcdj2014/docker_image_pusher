@@ -12,11 +12,7 @@ on:
 
 jobs:
     build:
-        strategy:
-            matrix:
-                os: [ ubuntu-latest ]
-
-        runs-on: ${{ matrix.os }}
+        runs-on: ubuntu-latest
 
         steps:
             -   uses: actions/checkout@v4
@@ -24,7 +20,7 @@ jobs:
             -   name: Build in manylinux2014 container
                 run: |
                     cd  py/archive
-                    PWD
+                    pwd
                     docker run --rm \
                       -v "$PWD:/src" \
                       quay.io/pypa/manylinux2014_x86_64 \
@@ -43,5 +39,5 @@ jobs:
 
             -   uses: actions/upload-artifact@v4
                 with:
-                    name: myapp-${{ matrix.os }}
+                    name: wms-archive-tool-linux-manylinux
                     path: py/archive/dist/*
