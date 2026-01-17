@@ -29,17 +29,23 @@ jobs:
 
                         PYTHON=/opt/python/cp311-cp311/bin/python
                         PIP=/opt/python/cp311-cp311/bin/pip
+                        export LD_LIBRARY_PATH=/opt/python/cp311-cp311/lib
 
                         \$PIP install --upgrade pip
-                        \$PIP install pyinstaller
+                        # ⚠️ 明确安装支持 Python 3.11 的 PyInstaller
+                        \$PIP install 'pyinstaller>=6.3'
 
-                        # 校验 Python 是否 shared build（必须是 1）
-                        \$PYTHON -c 'import sys,sysconfig; print(sys.executable); print(\"Py_ENABLE_SHARED =\", sysconfig.get_config_var(\"Py_ENABLE_SHARED\"))'
+                        # 验证 shared library（必须看到 1）
+                        \$PYTHON -c 'import sysconfig; print(sysconfig.get_config_var(\"Py_ENABLE_SHARED\"))'
+
+                        # 验证 libpython 是否可被 loader 找到
+                        ls -l /opt/python/cp311-cp311/lib/libpython3.11.so*
 
                         cd /src
 
                         \$PYTHON build.py
                       "
+
             -   uses: actions/upload-artifact@v4
                 with:
                     name: wms-archive-tool-linux-manylinux
