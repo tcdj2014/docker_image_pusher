@@ -14,18 +14,31 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [ macos-latest, ubuntu-20.04 ]
+                os: [ macos-latest, ubuntu-latest ]
 
         runs-on: ${{ matrix.os }}
 
         steps:
             -   uses: actions/checkout@v4
 
-            -   uses: actions/setup-python@v5
-                with:
-                    python-version: '3.11'
-
-            -   run: cd  py/archive && python3 build.py
+            -   name: Build in manylinux2014 container
+                run: |
+                    cd  py/archive
+                    docker run --rm \
+                      -v "$PWD:/src" \
+                      quay.io/pypa/manylinux2014_x86_64 \
+                      bash -c "
+                        set -eux
+                    
+                        # 使用 Python 3.11
+                        PYTHON=/opt/python/cp311-cp311/bin/python
+                        PIP=/opt/python/cp311-cp311/bin/pip
+                    
+                        \$PIP install --upgrade pip
+                        \$PIP install pyinstaller
+                    
+                        cd src && python3 build.py
+                      "
 
             -   uses: actions/upload-artifact@v4
                 with:
