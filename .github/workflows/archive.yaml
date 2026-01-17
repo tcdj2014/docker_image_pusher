@@ -27,14 +27,13 @@ jobs:
                       bash -c "
                         set -eux
                     
-                        # 使用 Python 3.11
-                        PYTHON=/opt/python/cp311-cp311/bin/python
-                        PIP=/opt/python/cp311-cp311/bin/pip
+                        # 创建 Python 3.11 符号链接到系统路径
+                        ln -sf /opt/python/cp311-cp311/bin/python /usr/local/bin/python
+                        ln -sf /opt/python/cp311-cp311/bin/pip /usr/local/bin/pip
                     
-                        \$PIP install --upgrade pip
-                        \$PIP install pyinstaller
+                        pip install --upgrade pip
                     
-                        cd src && \$PYTHON build.py
+                        cd src && python build.py
                       "
 
             -   uses: actions/upload-artifact@v4
