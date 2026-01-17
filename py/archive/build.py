@@ -53,7 +53,7 @@ def build_executable():
     
     # PyInstaller命令
     cmd = [
-        "python",
+        sys.executable,
         "-m",
         "PyInstaller",
         "--onefile",  # 打包成单个可执行文件

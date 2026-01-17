@@ -25,23 +25,26 @@ jobs:
                       -v "$PWD:/src" \
                       quay.io/pypa/manylinux2014_x86_64 \
                       bash -c "
-                        set -eux
-                    
-                        # 创建 Python 3.11 符号链接到系统路径
-                        ln -sf /opt/python/cp311-cp311/bin/python /usr/local/bin/python
-                        ln -sf /opt/python/cp311-cp311/bin/pip /usr/local/bin/pip
-                    
-                        pip install --upgrade pip
-                        pip install pyinstaller
-                    
-                        # 添加 pyinstaller 到 PATH
-                        export PATH=/opt/python/cp311-cp311/bin:\$PATH
-                    
-                        # 验证 pyinstaller 是否可用
-                        which pyinstaller || echo 'pyinstaller not found'
-                        python -c 'import PyInstaller; print(\"PyInstaller version:\", PyInstaller.__version__)' || echo 'Failed to import PyInstaller'
-                    
-                        cd src && python build.py
+                          set -eux
+                      
+                          PYTHON=/opt/python/cp311-cp311/bin/python
+                          PIP=/opt/python/cp311-cp311/bin/pip
+                      
+                          # 只用 manylinux 自带 pip
+                          \$PIP install --upgrade pip
+                          \$PIP install pyinstaller
+                      
+                          # 校验 Python 是否 shared build（必须是 1）
+                          \$PYTHON - <<EOF
+                          import sys, sysconfig
+                          print(sys.executable)
+                          print('Py_ENABLE_SHARED =', sysconfig.get_config_var('Py_ENABLE_SHARED'))
+                          EOF
+                      
+                          cd /src
+                      
+                          # ⚠️ build.py 也必须用这个 python
+                          \$PYTHON build.py
                       "
 
             -   uses: actions/upload-artifact@v4
