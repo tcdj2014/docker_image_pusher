@@ -5,6 +5,7 @@ on:
     push:
         branches: [ main ]
         paths:
+            - '.github/workflows/archive.yaml'
             - 'py/archive/*'
     schedule:
         -   cron: '00 4 * * *'
@@ -13,7 +14,7 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [ macos-latest, ubuntu-latest ]
+                os: [ macos-latest, ubuntu-20.04 ]
 
         runs-on: ${{ matrix.os }}
 
