@@ -1,0 +1,20 @@
+# 归档配置
+archive_config:
+  increment_value: 10000          # 每次归档递增的数值
+  default_min_id_value: 10000     # 默认的最小ID值
+  total_iterations: 1000          # 迭代次数
+
+# 线程池配置
+thread_pool:
+  max_workers: 5                 # 最大并发线程数
+
+# 重试策略配置
+retry_policy:
+  total: 3                       # 总重试次数
+  backoff_factor: 1              # 重试间隔因子
+  status_forcelist: [429, 500, 502, 503, 504]  # 需要重试的状态码列表
+
+# 连接池配置
+connection_pool:
+  pool_connections: 10           # 连接池的连接数
+  pool_maxsize: 20               # 最大连接数
