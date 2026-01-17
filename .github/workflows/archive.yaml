@@ -23,11 +23,12 @@ jobs:
 
             -   name: Build in ubuntu-20.04 container
                 run: |
+                    cd py/archive
                     docker run --rm \
                       -v "$PWD:/src" \
-                      -w /src/py/archive \
                       ubuntu:20.04 \
                       bash -c "
+                        cd /src
                         set -eux
                     
                         apt-get update
