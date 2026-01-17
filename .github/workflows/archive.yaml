@@ -24,9 +24,7 @@ jobs:
                 with:
                     python-version: '3.11'
 
-            -   run: cd  py/archive
-
-            -   run: python3 build.py
+            -   run: cd  py/archive && python3 build.py
 
             -   uses: actions/upload-artifact@v4
                 with:
