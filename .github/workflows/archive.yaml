@@ -1,4 +1,4 @@
-name: Docker Python Build
+name: Docker Python Build ubuntu bin
 
 on:
     workflow_dispatch:
@@ -14,7 +14,7 @@ jobs:
     build:
         strategy:
             matrix:
-                os: [ macos-latest, ubuntu-latest ]
+                os: [ ubuntu-latest ]
 
         runs-on: ${{ matrix.os }}
 
@@ -24,6 +24,7 @@ jobs:
             -   name: Build in manylinux2014 container
                 run: |
                     cd  py/archive
+                    PWD
                     docker run --rm \
                       -v "$PWD:/src" \
                       quay.io/pypa/manylinux2014_x86_64 \
