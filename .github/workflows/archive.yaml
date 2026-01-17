@@ -32,6 +32,14 @@ jobs:
                         ln -sf /opt/python/cp311-cp311/bin/pip /usr/local/bin/pip
                     
                         pip install --upgrade pip
+                        pip install pyinstaller
+                    
+                        # 添加 pyinstaller 到 PATH
+                        export PATH=/opt/python/cp311-cp311/bin:\$PATH
+                    
+                        # 验证 pyinstaller 是否可用
+                        which pyinstaller || echo 'pyinstaller not found'
+                        python -c 'import PyInstaller; print(\"PyInstaller version:\", PyInstaller.__version__)' || echo 'Failed to import PyInstaller'
                     
                         cd src && python build.py
                       "
