@@ -5,7 +5,7 @@ on:
     push:
         branches: [ main ]
         paths:
-            - 'py'
+            - 'py/archive/*'
     schedule:
         -   cron: '00 4 * * *'
 
