@@ -50,12 +50,13 @@ def build_executable():
         exe_name = "wms-archive-tool-mac"
     else:  # Linux及其他类Unix系统
         exe_name = "wms-archive-tool-linux"
+
+     # 使用完整路径的 pyinstaller 命令
+    pyinstaller_cmd = '/opt/python/cp311-cp311/bin/pyinstaller'
     
     # PyInstaller命令
     cmd = [
-        "python",
-        "-m",
-        "pyinstaller",
+        pyinstaller_cmd,
         "--onefile",  # 打包成单个可执行文件
         "--name", exe_name,  # 输出文件名
         "--add-data", "config.yaml:.",  # 包含配置文件
