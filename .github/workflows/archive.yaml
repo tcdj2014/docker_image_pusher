@@ -12,39 +12,22 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
 
         steps:
             -   uses: actions/checkout@v4
+            -   name: Set up Python
+                uses: actions/setup-python@v5
+                with:
+                    python-version: '3.11'
+
+            -   name: Verify glibc
+                run: ldd --version
 
             -   name: Build in manylinux2014 container
                 run: |
                     cd  py/archive
-                    pwd
-                    docker run --rm \
-                      -v "$PWD:/src" \
-                      quay.io/pypa/manylinux2014_x86_64 \
-                      bash -c "
-                        set -eux
-
-                        PYTHON=/opt/python/cp311-cp311/bin/python
-                        PIP=/opt/python/cp311-cp311/bin/pip
-                        export LD_LIBRARY_PATH=/opt/python/cp311-cp311/lib
-
-                        \$PIP install --upgrade pip
-                        # ⚠️ 明确安装支持 Python 3.11 的 PyInstaller
-                        \$PIP install 'pyinstaller>=6.3'
-
-                        # 验证 shared library（必须看到 1）
-                        \$PYTHON -c 'import sysconfig; print(sysconfig.get_config_var(\"Py_ENABLE_SHARED\"))'
-
-                        # 验证 libpython 是否可被 loader 找到
-                        ls -l /opt/python/cp311-cp311/lib/libpython3.11.so*
-
-                        cd /src
-
-                        \$PYTHON build.py
-                      "
+                    python build.py
 
             -   uses: actions/upload-artifact@v4
                 with:
