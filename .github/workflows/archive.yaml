@@ -34,7 +34,7 @@ jobs:
                         \$PIP install --upgrade pip
                         \$PIP install pyinstaller
                     
-                        cd src && python3 build.py
+                        cd src && \$PYTHON build.py
                       "
 
             -   uses: actions/upload-artifact@v4
