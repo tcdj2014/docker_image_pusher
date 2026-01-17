@@ -47,11 +47,6 @@ jobs:
                         echo '=== glibc in container ==='
                         ldd --version
                     
-                        python3 - <<'EOF'
-                        import sysconfig
-                        print('Py_ENABLE_SHARED =', sysconfig.get_config_var('Py_ENABLE_SHARED'))
-                        EOF
-                    
                         # ⚠️ 必须在容器里跑 build.py
                         python3 build.py
                         "
