@@ -35,11 +35,7 @@ jobs:
                           \$PIP install pyinstaller
                       
                           # 校验 Python 是否 shared build（必须是 1）
-                          \$PYTHON - <<EOF
-                          import sys, sysconfig
-                          print(sys.executable)
-                          print('Py_ENABLE_SHARED =', sysconfig.get_config_var('Py_ENABLE_SHARED'))
-                          EOF
+                          \$PYTHON -c "import sys,sysconfig; print(sys.executable); print('Py_ENABLE_SHARED =', sysconfig.get_config_var('Py_ENABLE_SHARED'))"
                       
                           cd /src
                       
