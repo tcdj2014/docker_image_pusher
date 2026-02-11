@@ -1,1 +1,2 @@
 mysql:lts
+caddybuilds/caddy-cloudflare:latest
