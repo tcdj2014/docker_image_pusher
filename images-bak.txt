@@ -22,7 +22,7 @@ zabbix/zabbix-server-mysql:latest
 zabbix/zabbix-web-nginx-mysql:latest
 zabbix/zabbix-agent:latest
 portainer/portainer-ce:latest
-vaultwarden/server:1.33.1-alpine
+vaultwarden/server:1.35.7-alpine
 prom/prometheus:v2.53.4
 grafana/grafana:11.6.0
 jumpserver/jms_all:v4.8.1
