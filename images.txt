@@ -1,4 +1,5 @@
 mysql:lts
+mysql:8.4
 mysql:5.7.44
 redis:7
 mongo:7
