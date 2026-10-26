@@ -1,5 +1,5 @@
 mysql:lts
 mysql:5.7.44
 redis:7
-mongo:7.0.12
+mongo:7
 rabbitmq:3-management
