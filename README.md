@@ -12,10 +12,3 @@ B站，抖音，Youtube全网同名，转载请注明作者<br>
 
 ## 使用方式
 https://github.com/tech-shrimp/docker_image_pusher/blob/main/README.md
-
-### 编译tengine-base
-```shell
-tag=v0.3
-git tag -a $tag -m "调整dockerfile" \
-&& git push origin $tag
-```
