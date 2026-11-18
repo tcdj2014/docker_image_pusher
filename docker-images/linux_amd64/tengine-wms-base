@@ -1,6 +1,0 @@
-FROM registry.cn-hangzhou.aliyuncs.com/xmtang/tengine:wms-base-latest
-
-COPY docker-images/cbt-web.conf ${TENGINE_BASEDIR}/
-COPY docker-images/static-wms.conf ${TENGINE_BASEDIR}/
-
-CMD ["nginx", "-g", "daemon off;"]

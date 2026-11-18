@@ -1,6 +1,0 @@
-FROM registry.cn-hangzhou.aliyuncs.com/xmtang/tengine:ots-base-latest
-
-COPY docker-images/cbt-web.conf ${TENGINE_BASEDIR}/
-COPY docker-images/static-ots.conf ${TENGINE_BASEDIR}/
-
-CMD ["nginx", "-g", "daemon off;"]
