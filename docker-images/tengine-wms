@@ -1,5 +1,0 @@
-## Dockerfile
-FROM registry.cn-hangzhou.aliyuncs.com/xmtang/tengine:base-latest
-
-COPY docker-images/cbt-web.conf ${TENGINE_BASEDIR}/
-COPY docker-images/static-wms.conf ${TENGINE_BASEDIR}/
